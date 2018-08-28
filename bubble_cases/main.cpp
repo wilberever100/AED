@@ -1,6 +1,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include <time.h>
+
 
 using namespace std;
 
@@ -42,6 +44,7 @@ void create(int n,int* &q){
 
 
 ////////////////////////////////////////////
+//POLIMORFISMO
 class comparador{
     public:
 
@@ -63,7 +66,7 @@ class mayorque: public comparador{
 
 };
 
-//POLIMORFISMO
+
 
 void bubbleSort_pol(int arr[], int n,comparador* p)
 {
@@ -79,48 +82,60 @@ void bubbleSort_pol(int arr[], int n,comparador* p)
 
 ///////////////////////////////////////////////////////////////////
 
-class criterio{
+class asc{
     public:
-        string op;
-        criterio(string k):op(k){};
-        bool operator()(int a, int b){
-            if(op=="mayor"){return a>b;}
-            else{return a<b;}
+        asc(){};
+        inline bool operator()(int a, int b){
+            return a>b;
         }
 };
-void bubbleSort_func(int arr[], int n, string crit)
-{
-   int i, j;
-   criterio(crit);
-   for (i = 0; i < n-1; i++)
+class desc{
+    public:
+        desc(){};
+        inline bool operator()(int a, int b){
+            return a<b;
+        }
+};
+template <class T>
 
-       // Last i elements are already in place
-       for (j = 0; j < n-i-1; j++)
-           if (criterio(arr[j],arr[j+1]))
-              swap(&arr[j], &arr[j+1]);
+class bubble_functor{
+    public:
+        T op;
+
+        void bubbleSort_func(int arr[], int n)
+        {
+           int i, j;
+           ;
+           for (i = 0; i < n-1; i++)
+
+               // Last i elements are already in place
+               for (j = 0; j < n-i-1; j++)
+                   if (op(arr[j],arr[j+1]))
+                      swap(&arr[j], &arr[j+1]);
+        }
+
+};
+/////////////////////////////////////////////////////////////
+//PUNTEROS A FUNCIÓN
+
+bool ascendente(int a,int b){
+    return a>b;
+}
+bool descendente(int a,int b){
+    return a<b;
 }
 
+void bubbleSort_pointer(int arr[], int n, bool(*p)(int,int))
+        {
+           int i, j;
+           ;
+           for (i = 0; i < n-1; i++)
 
-/////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+               // Last i elements are already in place
+               for (j = 0; j < n-i-1; j++)
+                   if (p(arr[j],arr[j+1]))
+                      swap(&arr[j], &arr[j+1]);
+        }
 
 
 
@@ -131,15 +146,41 @@ void bubbleSort_func(int arr[], int n, string crit)
 
 int main()
 {
+
+    srand(time(NULL));
+    clock_t t0, t1;
+
+
+    int* p;
+    create(10000,p);
+
+
+ //POLIMORFISMO
     /*comparador* c;
     mayorque mayor;
     c=&mayor;*/
-
-    int* p;
-    create(100,p);
     //bubbleSort_pol(p,100,c);
-    //bubbleSort_func(p,100,"mayor")
 
-    printArray(p,100);
+    t0=clock();
+
+//POINTER TO FUNCTION
+    bool(*ptr)(int,int);
+    ptr=&ascendente;
+    bubbleSort_pointer(p,10000,ptr);
+
+//FUNCTOR
+    //bubble_functor <asc>a;
+    //a.bubbleSort_func(p,10000);
+
+
+
+    t1=clock();
+
+
+    printArray(p,10000);
+
+    cout<<endl;
+
+    cout<<"EL TIEMPO DE EJECUCION ES: "<<double(t1-t0)/CLK_TCK<<endl;
     return 0;
 }

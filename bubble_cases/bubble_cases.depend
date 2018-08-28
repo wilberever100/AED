@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1535421581 source:f:\c++\bubble_cases\main.cpp
+	<iostream>
+	<stdlib.h>
+
+1535419178 source:f:\c++\bubble_cases\src\comparador.cpp
+	"comparador.h"
+
+1535419170 f:\c++\bubble_cases\include\comparador.h
+

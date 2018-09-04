@@ -96,6 +96,8 @@ class desc{
             return a<b;
         }
 };
+
+
 template <class T>
 
 class bubble_functor{
@@ -105,7 +107,7 @@ class bubble_functor{
         void bubbleSort_func(int arr[], int n)
         {
            int i, j;
-           ;
+
            for (i = 0; i < n-1; i++)
 
                // Last i elements are already in place
@@ -155,18 +157,22 @@ int main()
     create(10000,p);
 
 
- //POLIMORFISMO
-    /*comparador* c;
-    mayorque mayor;
-    c=&mayor;*/
-    //bubbleSort_pol(p,100,c);
+
 
     t0=clock();
 
+//POLIMORFISMO
+    comparador* c;
+    mayorque mayor;
+    c=&mayor;
+    bubbleSort_pol(p,10000,c);
+
+
+
 //POINTER TO FUNCTION
-    bool(*ptr)(int,int);
+    /*bool(*ptr)(int,int);
     ptr=&ascendente;
-    bubbleSort_pointer(p,10000,ptr);
+    bubbleSort_pointer(p,10000,ptr);*/
 
 //FUNCTOR
     //bubble_functor <asc>a;
@@ -177,9 +183,9 @@ int main()
     t1=clock();
 
 
-    printArray(p,10000);
+    //printArray(p,10000);
 
-    cout<<endl;
+
 
     cout<<"EL TIEMPO DE EJECUCION ES: "<<double(t1-t0)/CLK_TCK<<endl;
     return 0;

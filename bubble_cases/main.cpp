@@ -151,10 +151,10 @@ int main()
 
     srand(time(NULL));
     clock_t t0, t1;
-
+    int elementos=300000;
 
     int* p;
-    create(10000,p);
+    create(elementos,p);
 
 
 
@@ -165,18 +165,18 @@ int main()
     comparador* c;
     mayorque mayor;
     c=&mayor;
-    bubbleSort_pol(p,10000,c);
+    bubbleSort_pol(p,elementos,c);
 
 
 
 //POINTER TO FUNCTION
     /*bool(*ptr)(int,int);
     ptr=&ascendente;
-    bubbleSort_pointer(p,10000,ptr);*/
+    bubbleSort_pointer(p,elementos,ptr);*/
 
 //FUNCTOR
     //bubble_functor <asc>a;
-    //a.bubbleSort_func(p,10000);
+    //a.bubbleSort_func(p,elementos);
 
 
 
